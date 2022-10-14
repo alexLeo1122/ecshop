@@ -1,23 +1,27 @@
 import './cart-dropdown.styles.scss'
 import Button from '../button/button.component';
 import { useContext } from 'react';
+
 import { CartItemsContext } from '../../contexts/CartItems.context';
 import { CartItem } from '../cart-item/cart-item.component';
+import { useNavigate } from 'react-router-dom';
+import { ascending, calTotal } from '../../utils/functions.utils/functions.utils';
 
-const ascending = (a,b) => a.cartId - b.cartId;
-const calTotal = (arr) => {
-    return arr.reduce((pre,curItem)=> pre + (curItem.quantity*curItem.price), 0);
-}
+
+
 
 const CartDropdown = () => {
-const {cartItems} = useContext(CartItemsContext);
+const {cartItems, setIsCartOpen} = useContext(CartItemsContext);
+const navigate = useNavigate();
 const sortedCartItems = [...cartItems];
     sortedCartItems.sort(ascending);
 const total = calTotal(cartItems);
-// const handleDeleteItem = ({target}) => {
-//     const deltetedArray = cartItems.filter(item=> item.id !== Number(target.id))
-//     setCartItems(deltetedArray);
-// }
+
+
+const goToNavigateHandler = () => {
+    navigate('./checkout');
+}
+
 return (
         <div className='cart-dropdown-container'>
             <div className='total'>Total:{" "}${total}</div>
@@ -27,7 +31,9 @@ return (
                 )
             )}
             </div>
-            <Button >Check out</Button>
+           
+            <Button onClick={()=>{goToNavigateHandler();setIsCartOpen(false);}}>Check out</Button>
+      
         </div>
   );
 };
