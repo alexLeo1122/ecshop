@@ -2,10 +2,6 @@ import { createContext, useState } from "react";
 
 let cardIdCount = 0;
 export const CartItemsContext = createContext({
-        isCartOpen: false,
-        setIsCartOpen: ()=>{},
-        cartItems:[],
-        setCartItems:()=>{}
     }
 );
 
@@ -41,7 +37,20 @@ export const CartItemsProvider =({children}) => {
         setCartItems(deltetedArray);
     }
 
-    const value = {cartItems, setCartItems, isCartOpen, setIsCartOpen, AddItemToCart, handleDeleteItem};
+    const increaseQuant = (product) =>{
+        setCartItems(
+            cartItems.map((item) =>( item.id !== product.id ? item : 
+            {...item, quantity: item.quantity +1}))
+        );  
+    }
+    const decreaseQuant = (product) =>{
+        setCartItems(
+            cartItems.map((item) =>( item.id !== product.id ? item : 
+                    {...item, quantity: (item.quantity <=1 ? 1: item.quantity -1)}
+            ))
+        );  
+    }
+    const value = {cartItems, setCartItems, increaseQuant, decreaseQuant, isCartOpen, setIsCartOpen, AddItemToCart, handleDeleteItem};
     return ( 
         <CartItemsContext.Provider value={value}>
                 {children}
