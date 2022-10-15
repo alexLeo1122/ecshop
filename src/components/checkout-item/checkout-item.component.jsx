@@ -23,6 +23,9 @@ const CheckoutItem = ({item}) => {
                     </div>
                     <span className="price" >${item.price}</span>
                     <div className="remove-button" id={item.id} onClick={()=>{handleDeleteItem(item)}} >&#10005;</div>
+                    
+
+
             </div>
         </>
   );
