@@ -7,8 +7,6 @@ import './sign-up-form.styles.scss';
 import { UserContext } from "../../contexts/user.context";
 
 
-
-
 const defaultFormFields = {
     displayName: '',
     email: '',
@@ -75,4 +73,4 @@ const SignUpForm = () =>{
 };
 
 
-export default SignUpForm;
+export default SignUpForm
