@@ -19,11 +19,11 @@ const Navigation = () => {
                     <CrwnLogo className='logo'/>
                 </Link>
                 <div className="nav-links-container">
-                    <Link className='nav-link' to='/shop'>
+                    <Link className='nav-link' to='shop'>
                         SHOP
                     </Link>
                     {currentUser?<span className = "nav-link" onClick={signOutAuth}>SIGN OUT</span>:
-                        (<Link className='nav-link' to='/sign-in'>
+                        (<Link className='nav-link' to='sign-in'>
                         SIGN IN
                         </Link>)                   
                     }
