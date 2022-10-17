@@ -1,5 +1,5 @@
-import { createContext,useState, useEffect } from "react";
-import { signOutAuth, onAuthStateChangedListener } from "../utils/firebase/firebase.utils";
+import { createContext,useState, useEffect, useReducer } from "react";
+import { onAuthStateChangedListener } from "../utils/firebase/firebase.utils";
 import { createUserDocumentFromAuth } from "../utils/firebase/firebase.utils";
 
 export const UserContext = createContext({
@@ -8,24 +8,52 @@ export const UserContext = createContext({
 });
 
 
+const UserAction = {
+    SET_CURRENT_USER: "SET_CURRENT_USER"
+}
+const INITIAL_STATE = {
+    currentUser: null,
+  };
+function UserReducer(state, action) {
+    switch (action.type) {
+        case  UserAction.SET_CURRENT_USER:{
+            return {...state, 
+                    currentUser: action.payload  }
+        }      
+        default:{
+            throw Error('Unknown action.');
+        }
+           
+    }
+}
+
+
+
+
+
 export const UserProvider = ({children})=>{
-    const [currentUser,setCurrentUser]=useState(null);
-    const value = {currentUser,setCurrentUser};
+    // const [currentUser,setCurrentUser] = useState(null);
+    const [state, dispatch] = useReducer(UserReducer, INITIAL_STATE);
+    const {currentUser} = state;
+    const setCurrentUser = (user) =>{
+        dispatch({
+            type: UserAction.SET_CURRENT_USER,
+            payload: user
+        });
+    }
+
     // signOutAuth();
     useEffect(()=>{
         const unsubscribe = onAuthStateChangedListener((user)=>{
-            // console.log(user);
-
             if (user) {
                 createUserDocumentFromAuth(user);
             }
-                setCurrentUser(user);                
-                console.log(user)
+            setCurrentUser(user);                
+            console.log(user)
         });
         return unsubscribe;
-    
     },[]);
-    
+    const value = {currentUser,setCurrentUser};
     return( 
     <UserContext.Provider value={value}>
     {children}
