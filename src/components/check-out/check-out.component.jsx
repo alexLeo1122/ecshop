@@ -1,17 +1,17 @@
 import Button from '../button/button.component';
 import { useContext } from 'react';
 import { CartItemsContext } from '../../contexts/CartItems.context';
-import { ascending, calTotal } from '../../utils/functions.utils/functions.utils';
+import { ascending } from '../../utils/functions.utils/functions.utils';
 import CheckoutItem from '../checkout-item/checkout-item.component';
 import "./check-out.styles.scss"
 
 
 const CheckOut = () => {
 
-    const {cartItems} = useContext(CartItemsContext);
+    const {cartItems,totalAmount} = useContext(CartItemsContext);
     const sortedCartItems = [...cartItems];
         sortedCartItems.sort(ascending);
-    const total = calTotal(cartItems);
+    // const total = calTotal(cartItems);
     return (
         <>
             <div className='checkout-container'>
@@ -36,7 +36,7 @@ const CheckOut = () => {
                         <CheckoutItem item={item} key={item.id}  />
 
                 ))}
-                    <div className='total'>TOTAL: ${total}</div>
+                    <div className='total'>TOTAL: ${totalAmount}</div>
                     <Button>Pay NOW</Button>
             </div>
 
