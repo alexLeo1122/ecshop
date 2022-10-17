@@ -2,6 +2,7 @@
 // import { Link } from 'react-router-dom';
 import {BackgroundImage, CategoryBodyContainer,CategoryContainer} from './category-item.styles'
 
+
 const CategoryItem = ({category}) => {
     const {imageUrl, title} = category;
     const fixedTitle = title.replace("'","");
