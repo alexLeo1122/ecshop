@@ -1,12 +1,15 @@
-import { useContext} from 'react';
-// import ProductCard from '../../components/product-card/product-card.component';
 import CategoryPreview from '../../components/category-preview/category-preview.component';
-import { CategoriesContext } from '../../contexts/products.context';
+import { categoriesMapSelector } from "../../store/categories/categories.selector";
+import {  useSelector } from "react-redux";
 
 import './categories-preview.styles.scss';
 
 const CategoriesPreview = () => {
-  const { categoriesMap } = useContext(CategoriesContext);
+  console.log(">>>Category Preview run");
+  // let categoriesMap; console.log("CategoryPreview/Map before selector",categoriesMap)
+  console.log("CategoryPreview/selecting categorymap");
+   const categoriesMap = useSelector(categoriesMapSelector);
+  console.log("CategoriesPreview/cateMap",categoriesMap);
 
   return (
     <div className='shop-container'>

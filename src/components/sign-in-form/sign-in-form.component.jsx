@@ -8,18 +8,28 @@ import {
 import FormInput from '../form-input/form-input.component';
 import './sign-in-form.styles.scss'
 import { useState,useContext } from 'react';
-import { UserContext } from '../../contexts/user.context';
 import { BUTTON_TYPE_CLASSES } from '../button/button.component';
+import { currentUserSelector } from '../../store/user/user.selector';
+import { useSelector } from 'react-redux';
+import { categoriesMapSelector } from "../../store/categories/categories.selector";
+
+
 const defaultFormFields = {  
   email: '',
   passWord: ''
 }
 
 const SignInForm = () => {
+  console.log("Sign in run")
+
+  // const categoriesMap = useSelector(categoriesMapSelector);
+  // console.log("signin run"); 
+  // const categoriesMap = useSelector(categoriesMapSelector);
+
   const [formFields, setFormFields] = useState(defaultFormFields);
   const {email,passWord} = formFields;
   // const {currentUser,setCurrentUser}=useContext(UserContext);
-
+  // const currentUser = useSelector(currentUserSelector);
   const signInWithGoogle = async () => {
    await signInWithGooglePopup();
 

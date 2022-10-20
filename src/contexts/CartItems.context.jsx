@@ -34,7 +34,7 @@ const CartItemsReducer = (state, action)=> {
 export const CartItemsProvider =({children}) => {
     const [state, dispatch] = useReducer(CartItemsReducer,INITIAL_STATE);
     const {cartItems, totalAmount, itemsCount, isCartOpen} = state;
-    console.log(cartItems);    
+    // console.log(cartItems);    
 
     const setIsCartOpen = (bool) =>{
         dispatch({type: CART_ITEMS_ACTIONS.SET_IS_CART_OPEN, payload: bool});

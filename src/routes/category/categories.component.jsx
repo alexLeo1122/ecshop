@@ -1,19 +1,18 @@
-import "./categories.styles.scss";
-import { useContext, useEffect, useState } from "react";
-import { CategoriesContext } from "../../contexts/products.context";
 import { useParams } from "react-router-dom";
 import ProductCard from "../../components/product-card/product-card.component";
+import {  useSelector } from "react-redux";
+import { categoriesMapSelector } from "../../store/categories/categories.selector";
 
+import "./categories.styles.scss";
 
-
-const Categories = () => {
+const Category = () => {
+  console.log(">>>Category run");
     const {category} = useParams();
-    const {categoriesMap} = useContext(CategoriesContext);
-    const [products, setProducts] = useState(categoriesMap[category]);
-    useEffect(()=>{
-        setProducts(categoriesMap[category]);
-    },[category,categoriesMap]);
-    
+    console.log(`Category/${category}/UseSelector-categoriesMap`);
+    const categoriesMap = useSelector(categoriesMapSelector); 
+    const products =categoriesMap[category];
+    console.log("Category/getProducts",products);
+
   return (
     <>
         <h1>{category.toUpperCase()}</h1>
@@ -24,5 +23,5 @@ const Categories = () => {
     </>
   );
 };
-export default Categories;
+export default Category;
 

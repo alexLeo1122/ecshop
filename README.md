@@ -1,1 +1,3 @@
-# redux Version
+# Redux + React-Redux + Redux
+
+# Middlware + Reselect

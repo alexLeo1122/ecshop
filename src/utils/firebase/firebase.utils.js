@@ -95,14 +95,24 @@ export const setCollection = async (objectsArr) =>{
 }
 
 
-export const getCategoriesAndDocuments = async() => {
+export const getCategoriesAndDocuments = async() => {  
   const collectionRef = collection(db,'categories');
   // const q = query(collectionRef);
   const querySnapshop = await getDocs(collectionRef);
-  const categoryMap = querySnapshop.docs.reduce((acc,docSnapshot) => {
-    const {title, items} = docSnapshot.data();
-    acc[title.toLowerCase()] = items;
-    return acc;
-  },{});
-  return categoryMap;
+  const docs = querySnapshop.docs;
+  // docs.forEach((doc) => {
+  //   // doc.data() is never undefined for query doc snapshots
+  //   console.log(doc.id, " => ", doc.data());
+  // });
+
+  //return categoryMap {hats:Arr, jackets:Arr,...}
+  // const categoryMap = querySnapshop.docs.reduce((acc,docSnapshot) => {
+  //   const {title, items} = docSnapshot.data();
+  //   acc[title.toLowerCase()] = items;
+  //   return acc;
+  // },{});
+  // console.log(docs);
+  const categoriesArr = querySnapshop.docs.map(docSnapShot=> docSnapShot.data());
+  console.log("getting data from firebase")
+  return categoriesArr;
 }

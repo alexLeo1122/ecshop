@@ -1,10 +1,10 @@
-// import { async } from "@firebase/util";
-import { useState, useContext } from "react";
+import { useState } from "react";
 import {  createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from "../../utils/firebase/firebase.utils";
 import Button from "../button/button.component";
 import FormInput from "../form-input/form-input.component";
 import './sign-up-form.styles.scss';
-import { UserContext } from "../../contexts/user.context";
+import { setCurrentUser } from "../../store/user/user.action";
+import { useDispatch } from "react-redux";
 
 
 const defaultFormFields = {
@@ -14,9 +14,11 @@ const defaultFormFields = {
     confirmPassWord: ''
 }
 const SignUpForm = () =>{
+    console.log("Sign up run")
     const [formFields, setFormFields] = useState(defaultFormFields);
     const {displayName, email, passWord, confirmPassWord} = formFields;
-    const {setCurrentUser} = useContext(UserContext);
+    const dispatch = useDispatch();
+    // const {setCurrentUser} = useContext(UserContext);
     // console.log('render');
     const handleChange = ({target})  => {
         setFormFields({
@@ -40,7 +42,7 @@ const SignUpForm = () =>{
                 const {user} = userInfo;    
                 await createUserDocumentFromAuth(user,{displayName});
                 setFormFields(defaultFormFields);
-                setCurrentUser(user);
+                dispatch(setCurrentUser(user));
 
 
 
