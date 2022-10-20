@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import {  useEffect } from "react";
-import { useDispatch,  useSelector} from "react-redux";
-import { categoriesMapSelector } from '../../store/categories/categories.selector';
+import { useDispatch} from "react-redux";
+// import { categoriesMapSelector } from '../../store/categories/categories.selector';
 import {setCategories} from "../../store/categories/categories.actions";
 import { getCategoriesAndDocuments } from "../../utils/firebase/firebase.utils";
 
@@ -13,10 +13,7 @@ import './shop.styles.scss';
 const Shop = () => {
   console.log(">>>Shop run")
   const dispatch = useDispatch();
-  // console.log(">>>Shop/categoriesMapSelector");
 
-  // const categoriesArrr = useSelector(categoriesMapSelector);
-  // console.log("Shop/categoriesArr",categoriesArrr)
   useEffect(()=>{
     console.log("->Shop/useEff run");
     

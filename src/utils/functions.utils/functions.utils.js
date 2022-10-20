@@ -1,4 +1,4 @@
-
+// import { cardIdCount } from "../../store/cart-items/cart-items.actions";
 
 
 
@@ -25,15 +25,14 @@ export const UpdateStateReducer = (newCartItems) =>{
             totalAmount: newTotalAmount    
         }     
 }
-
-export const AddItemReducer =(state, product_to_add,cardIdCount)=>{
-    const {cartItems} = state;
+let cardIdCount = 0;
+export const AddItemReducer =(cartItems, product_to_add)=>{   
     const {id} = product_to_add;
     const isProductExist = cartItems.find(item=>item.id===id);
     if (isProductExist){
         const newCartItems = cartItems.map((item) =>
         ( item.id !== id ? item :  {...item, quantity: isProductExist.quantity +1}))
-        return UpdateStateReducer(newCartItems);                             
+        return newCartItems;                             
     } else {
         cardIdCount++;
         const newCartItems =  [
@@ -42,40 +41,36 @@ export const AddItemReducer =(state, product_to_add,cardIdCount)=>{
             cartId: cardIdCount,
             quantity: 1    
         }]
-        return UpdateStateReducer(newCartItems);                             
+        return newCartItems;                             
                           
 
     }
 }
 
-export const DeleteItemReducer = (state, product_to_delete) =>{
-    const {cartItems} = state;
+export const DeleteItemReducer = (cartItems, product_to_delete) =>{
+   
     const {id} = product_to_delete;
     const newCartItems = cartItems.filter(item=> item.id !== id);
-    return UpdateStateReducer(newCartItems);                             
+    return newCartItems;                             
 
 }
 
-export const IncreaseQuantReducer = (state, product)=>{
-    const {cartItems} = state;
+export const IncreaseQuantReducer = (cartItems, product)=>{
+    console.log("IncreaseQuantReducer running")
     const {id} = product;
-
     const newCartItems =  cartItems.map((item) =>( item.id !== id ? item : 
-       {...item, quantity: Number(item.quantity) +1}));
-       return UpdateStateReducer(newCartItems);                             
-                            
-
+       {...item, quantity: item.quantity +1}));
+    //    const payload = UpdateStateReducer(newCartItems)
+       return newCartItems;                             
 }
 
 
-export const DecreaseQuantReducer = (state, product)=>{
-    const {cartItems} = state;
+export const DecreaseQuantReducer = (cartItems, product)=>{
+
     const {id} = product;
     const newCartItems =    cartItems.map((item) =>( item.id !== id ? item : 
         {...item, quantity: (item.quantity <=1 ? 1: item.quantity -1)}));
-        return UpdateStateReducer(newCartItems);                             
-                            
-
+        return newCartItems;                             
 }
 
 export const createAction = (type,payload)=> ({type,payload});

@@ -1,16 +1,20 @@
 import Button from '../button/button.component';
-import { useContext } from 'react';
-import { CartItemsContext } from '../../contexts/CartItems.context';
+// import { useContext } from 'react';
+// import { CartItemsContext } from '../../contexts/CartItems.context';
 import { ascending } from '../../utils/functions.utils/functions.utils';
 import CheckoutItem from '../checkout-item/checkout-item.component';
+import { useDispatch,useSelector } from 'react-redux';
+import { cartItemsSelector, totalAmountSelector } from '../../store/cart-items/cart-items.selectors';
+
 import "./check-out.styles.scss"
 
 
 const CheckOut = () => {
-
-    const {cartItems,totalAmount} = useContext(CartItemsContext);
+    // const dispatch = useDispatch();
+    const cartItems = useSelector(cartItemsSelector);
     const sortedCartItems = [...cartItems];
         sortedCartItems.sort(ascending);
+    const totalAmount = useSelector(totalAmountSelector);
     // const total = calTotal(cartItems);
     return (
         <>

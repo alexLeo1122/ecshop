@@ -34,6 +34,10 @@
       .value {
         margin: 0 10px;
       }
+      .arrow.disabled {
+        opacity: 0.2;
+        cursor: default;
+      }
     }
   
     .remove-button {
