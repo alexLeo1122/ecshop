@@ -1,5 +1,7 @@
 import { compose, createStore, applyMiddleware } from "redux";
-import logger from "redux-logger";
+import { persistStore, persistReducer, PersistConfig } from "redux-persist";
+import storage from 'redux-persist/lib/storage'
+// import logger from "redux-logger";
 import { rootReducer } from "./root-reducer";
 const cssRules1 = 'color:  #ff751a; font-size: 14px; font-style: italic';
 const cssRules2 = 'color: #4d79ff; font-size: 14px';
@@ -18,6 +20,27 @@ const MyLogger = store => next => action =>{
 const middleWares = [MyLogger];
 
 const composeEnhancers = compose(applyMiddleware(...middleWares));
-export const store = createStore(rootReducer, undefined, composeEnhancers);
 
+
+
+
+
+const persistConfig = {
+  key: 'root',
+  storage,
+  blacklist: ['user']
+}
+const persistedReducer = persistReducer(persistConfig, rootReducer)
+
+
+
+
+
+
+
+
+
+export const store = createStore(persistedReducer, undefined, composeEnhancers);
+
+export const persistor = persistStore(store);
 

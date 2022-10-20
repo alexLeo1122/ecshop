@@ -1,10 +1,8 @@
 import {Outlet} from 'react-router-dom';
-// import { useContext } from 'react';
 import {ReactComponent as CrwnLogo} from '../../assets/crown.svg';
 import { signOutAuth } from '../../utils/firebase/firebase.utils';
 import CartIcon from '../../components/cart-icon/cart-icon.component';
 import CartDropdown from '../../components/cart-dropdown/cart-dropdown.component';
-// import { CartItemsContext } from '../../contexts/CartItems.context';
 import { useSelector } from 'react-redux';
 import {currentUserSelector} from "../../store/user/user.selector.js"
 import { NavigationContainer, LogoContainer, NavLink, NavLinksContainer } from './navigation.styles';
